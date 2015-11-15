@@ -2,17 +2,18 @@ import sqlite3
 import md5;
 import re;
 
-#this is input sanitizing but wrong
+#this is input sanitizing 
 def sanitize(input):
     return re.sub('"', "  ", input)
 
+#hashes and salts the pasword for permanent storage or retrieval
+#returns hashed password
 def encrypt(username,password):
     m = md5.new()
     m.update(username+password)
     return m.hexdigest()
-    #hashes and salts the pasword for permanent storage or retrieval
-    #returns hashed password
 
+#returns a boolean that describes whether the user has succesfully logged in.
 def authenticate(username, password):
     username = sanitize(username)
     conn = sqlite3.connect("myDataBase.db")
@@ -21,8 +22,9 @@ def authenticate(username, password):
     for r in ans:
         return True;
     return False;
-    #returns a boolean that describes whether the user has succesfully logged in.
 
+#creates new user and adds to database
+#return boolean whether the account has been created
 def newUser(username,password):
     username = sanitize(username)
     conn = sqlite3.connect("myDataBase.db")
