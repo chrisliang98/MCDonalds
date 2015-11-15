@@ -22,3 +22,15 @@ def get_Photos(tag,num):
             }
         )
     return j
+
+def find_Location(photo):
+    flickr_api.set_keys(**secrets)
+    location = flickr_api.photos.geo.getLocation(photo.id)
+    l = []
+    l.append(
+        {
+            'lng':location.longitude
+            'lat':location.latitude
+            }
+        )
+    return l
