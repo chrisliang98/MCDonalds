@@ -17,20 +17,13 @@ def get_Photos(tag,num):
         j.append(
             {
                 'title': photo.title,
+                'id':photo.id,
                 'url': "https://www.flickr.com/photos/" + str(photo.owner.id) + "/" + str(photo.id),
                 'd_url': "https://farm" + str(photo.farm) + ".staticflickr.com/" + str(photo.server) + "/" + str(photo.id) + "_" + str(photo.secret) + ".jpg"
             }
         )
     return j
 
-def find_Location(photo):
-    flickr_api.set_keys(**secrets)
-    location = flickr_api.photos.geo.getLocation(photo.id)
-    l = []
-    l.append(
-        {
-            'lng':location.longitude
-            'lat':location.latitude
-            }
-        )
-    return l
+
+
+    
