@@ -5,7 +5,7 @@
     <link href="/static/style.css" rel="stylesheet" type="text/css">
 </header>
 <center>
-    <body>
+    <body class="dark-matter">
     {% if search %}
         {% for photo in j %}
         <img src="{{photo.d_url}}"></img>
@@ -14,12 +14,13 @@
         <br>
         {% endfor %}
     {% else %}
-    <div class='center'>
+    <div id="parent">
+        <div id="search">
         <form method='POST'>
-            Search: <br><input type="text" name="tag">
-            <br>
-            <input type="submit">
+            <input type="text" name="tag">
+            <input type="submit" style="display: none">
         </form>
+        </div>
     </div>
     {% endif %}
     </body>
