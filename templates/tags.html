@@ -1,0 +1,27 @@
+<!DOCTYPE=html>
+<html>
+<header>
+    <title>Search</title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css">
+</header>
+<center>
+    <body>
+    {% if search %}
+        {% for photo in j %}
+        <img src="{{photo.d_url}}"></img>
+        <br>
+        <a href="{{photo.url}}">Original</a>
+        <br>
+        {% endfor %}
+    {% else %}
+    <div class='center'>
+        <form method='POST'>
+            Search: <br><input type="text" name="tag">
+            <br>
+            <input type="submit">
+        </form>
+    </div>
+    {% endif %}
+    </body>
+</center>
+</html>

@@ -1,5 +1,5 @@
 import urllib2,json
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, redirect, url_for, request, Response
 import flickr_api
 
 flickr_key = "dca00d0c7782247d89a98c1ee617a0ee"
@@ -9,30 +9,39 @@ secrets = {'api_key' : flickr_key, 'api_secret' : flickr_secret }
 
 app = Flask(__name__)
 
-@app.route("/t")
-@app.route("/t/<tag>")
-def t(tag):
+def get_Photos(tag,num):
     flickr_api.set_keys(**secrets)
-    photos = flickr_api.Photo.search(tags=tag, sort='date-posted-desc', per_page=10)
+    photos = flickr_api.Photo.search(tags=tag, sort='date-posted-desc', per_page=num,extras='url_o')
     j = []
     for photo in photos:
         j.append(
             {
                 'title': photo.title,
-                'description': photo.title,
-                'url': photo.getPhotoUrl()
+                'url': photo.getPhotoUrl(),
+                'd_url': "https://farm" + str(photo.farm) + ".staticflickr.com/" + str(photo.server) + "/" + str(photo.id) + "_" + str(photo.secret) + ".jpg"
             }
         )
-    response = Response(json.dumps({'photos': j}), status=200, mimetype='application/json')
+    return j
+
+@app.route("/t",methods=['GET','POST'])
+def t_home():
+    if request.method == 'GET':
+        return render_template("tags.html",search=False)
+    else:
+        tag = request.form['tag']
+        j = get_Photos(tag,10)
+        #return render_template("tags.html",j=j,search=True)
+        return redirect("/t/%s" %tag)
+
+@app.route("/t/<tag>")
+def t(tag):
+    search=True
+        #responses = Response(json.dumps({'photos': j}), status=200, mimetype='application/json')
     
 #works to get the info, now need to get direct url to pic and put that into a render_template return 
     #photos[]
-
-    #for r in response:
-     #   try:    
-      #      newPhoto = r[]
-
-    return response
+    j = get_Photos(tag,10)
+    return render_template("tags.html",j=j,search=True)
 
 
 if __name__ == "__main__":
