@@ -5,7 +5,11 @@
     <link href="/static/style.css" rel="stylesheet" type="text/css">
 </header>
 <center>
+    {% if not search %}
+    <body class="dark-matter" style="background: url('/static/back.jpg') background-size:cover;">
+    {% else %}
     <body class="dark-matter">
+    {% endif %}
     {% if search %}
         {% for photo in j %}
         <img src="{{photo.d_url}}"></img>
@@ -17,7 +21,17 @@
     <div id="parent">
         <div id="search">
         <form method='POST'>
-            <input type="text" name="tag">
+            <input type="text" name="tag"><br>
+            <select name="sort">
+                <option value="interestingness-desc">Most Popular</option>
+                <option value="date-posted-desc">Newest to Oldest</option>
+                <option value="date-posted-asc">Oldest to Newest</option>
+            </select>
+            <select name="num">
+                <option value=10>10</option>
+                <option value=20>20</option>
+                <option value=30>30</option>
+            </select>
             <input type="submit" style="display: none">
         </form>
         </div>

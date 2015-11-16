@@ -6,13 +6,13 @@
 
 #search {
     position: relative;
-    transform: translateY(500%);)
+    transform: translateY(430%);
+    left: 100%;
 }
 
 /* #### Dark Matter #### */
 .dark-matter {
-    background: url("/static/back.jpg");
-    background-size:cover;
+    background-color: #1c1b20;
     margin-left: auto;
     margin-right: auto;
     max-width: 500px;
@@ -47,10 +47,10 @@
     margin-top: 10px;
     font-weight: bold;
 }
-.dark-matter input[type="text"], .dark-matter input[type="email"], .dark-matter textarea, .dark-matter select {
+.dark-matter input[type="text"], .dark-matter input[type="email"], .dark-matter textarea {
     border: none;
     text-align:center;
-    color: #525252;
+    color: white;
     height: 45px;
     line-height:15px;
     margin-bottom: 16px;
@@ -59,6 +59,24 @@
     outline: 0 none;
     padding: 5px 0px 5px 5px;
     width: 70%;
+    border:none;
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    background: black;
+    opacity: 0.6;
+}
+.dark-matter select , .dark-matter option {
+    border: none;
+    text-align:center;
+    color: white;
+    height: 20px;
+    line-height:15px;
+    margin-bottom: 16px;
+    margin-right: 6px;
+    margin-top: 2px;
+    text-align: center;
+    outline: 0 none;
+    padding: 5px 0px 5px 5px;
+    width: 10%;
     border:none;
     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     background: black;

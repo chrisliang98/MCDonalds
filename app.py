@@ -4,24 +4,27 @@ import flickr
 
 app = Flask(__name__)
 
+@app.route("/", methods=['GET','POST'])
+@app.route("/home", methods=['GET','POST'])
+@app.route("/home/", methods=['GET','POST'])
 @app.route("/t",methods=['GET','POST'])
+@app.route("/t/",methods=['GET','POST'])
 def t_home():
     if request.method == 'GET':
         return render_template("tags.html",search=False)
     else:
         tag = request.form['tag']
-        j = flickr.get_Photos(tag,10)
+        num = request.form['num']
+        sort = request.form['sort']
+        j = flickr.get_Photos(tag,num,sort)
         #return render_template("tags.html",j=j,search=True)
-        return redirect("/t/%s" %tag)
+        return redirect("/t/%s/%s/%s" %(tag,num,sort))
 
-@app.route("/t/<tag>")
-def t(tag):
+@app.route("/t/<tag>/<num>/<sort>")
+@app.route("/t/<tag>/<num>/<sort>/")
+def t(tag,num,sort):
     search=True
-        #responses = Response(json.dumps({'photos': j}), status=200, mimetype='application/json')
-    
-#works to get the info, now need to get direct url to pic and put that into a render_template return 
-    #photos[]
-    j = flickr.get_Photos(tag,10)
+    j = flickr.get_Photos(tag,num,sort)
     return render_template("tags.html",j=j,search=True)
 
 

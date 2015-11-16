@@ -9,9 +9,9 @@ secrets = {'api_key' : flickr_key, 'api_secret' : flickr_secret }
 
 #gets num photos with specific tag
 #uses flickr_api's built in functions 
-def get_Photos(tag,num):
+def get_Photos(tag,num,sort):
     flickr_api.set_keys(**secrets)
-    photos = flickr_api.Photo.search(tags=tag, sort='date-posted-desc', per_page=num,extras='url_o')
+    photos = flickr_api.Photo.search(tags=tag, sort=sort, per_page=num,extras='url_o')
     j = []
     for photo in photos:
         j.append(
